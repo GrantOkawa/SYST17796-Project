@@ -6,19 +6,15 @@ package ca.sheridancollege.project;
 
 /**
  *
- * @author Jimmy
+ * @author lamvo
  */
-public class Blackjack extends Game {
+public class BlackjackPlayer extends Player {
 
-    public Blackjack(String name) {
+    public BlackjackPlayer(String name) {
         super(name);
     }
 
     @Override
     public void play() {
-    }
-
-    @Override
-    public void declareWinner() {
     }
 }
