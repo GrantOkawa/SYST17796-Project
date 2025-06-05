@@ -8,10 +8,17 @@ package ca.sheridancollege.project;
  *
  * @author Jimmy
  */
-public class Blackjack {
-    
-    public static void main(String[] args) {
-        
-        
+public class Blackjack extends Game {
+
+    public Blackjack(String name) {
+        super(name);
+    }
+
+    @Override
+    public void play() {
+    }
+
+    @Override
+    public void declareWinner() {
     }
 }
