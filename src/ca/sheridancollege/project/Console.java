@@ -122,13 +122,18 @@ public class Console {
         
         //bust logic 
         if(dealerTotal > 21){
-            System.out.println("\nDealer busts with: " + dealerTotal + " player wins");
+            System.out.println("\nDealer busts with: " + dealerTotal + " PLAYER WINS");
+            System.exit(0);
         } else {
             System.out.println("\nDealer stands with: " + dealerTotal);
         }
         
         
         //Compare the total value of Player and Dealer hand to see who wins
-        
+        if(dealerTotal > player.getHandCards().getHandValue()){
+            System.out.println("\nDEALER WINS");
+        } else {
+            System.out.println("\nPLAYER WINS");
+        }
     }
 }
