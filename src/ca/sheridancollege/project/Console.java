@@ -1,9 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package ca.sheridancollege.project;
-
+import java.util.Scanner;  // Import the Scanner class
 /**
  *
  * @author lamvo
@@ -31,7 +27,7 @@ public class Console {
         Card dealerCard2 = desk.drawCard();
         dealer.getHandCards().getCards().add(dealerCard1);
         dealer.getHandCards().getCards().add(dealerCard2);
-//      Show 1, keep 1
+//      Show 1, hide 1
         System.out.println("Card 1 of Dealer: " + dealerCard1);
 
 //        Player draw 2 cards
@@ -43,5 +39,50 @@ public class Console {
         for (Card c : player.getHandCards().getCards()) {
             System.out.println(c);
         }
+        System.out.println("The total value of your hand is: " + player.getHandCards().getHandValue());
+        
+//      Hit or Stand
+
+        Scanner playerInput = new Scanner(System.in);
+        boolean validInput = false;
+
+        do {
+            System.out.println("\nHit or Stand?");
+            System.out.println("Enter 1 for Hit and 2 for Stand");
+
+            if (playerInput.hasNextInt()) {
+            int hitOrStand = playerInput.nextInt();
+            switch (hitOrStand) {
+                case 1:
+                    System.out.println("\nYou have decided to hit");
+                    Card playerCard3 = desk.drawCard();
+                    player.getHandCards().getCards().add(playerCard3);
+                    System.out.println("You have drawn a: " + playerCard3);
+                    System.out.println("Cards of Player: ");
+                    for (Card c : player.getHandCards().getCards()) {
+                    System.out.println(c);
+                    }
+                    System.out.println("The total value of your hand is: " + player.getHandCards().getHandValue());
+                        if (player.getHandCards().getHandValue() > 21) {
+                            System.out.println("You busted gg");
+                            System.exit(0);
+                        }
+                    validInput = true;
+                    break;
+                case 2:
+                    System.out.println("\nYou have decided to stand");
+                    validInput = true;
+                    break;
+                default:
+                    System.out.println("Invalid number. Please enter 1 or 2.");
+                    break;
+                }
+            } else {
+                System.out.println("Invalid input. Please enter 1 or 2.");
+                playerInput.next(); 
+            }
+        } while (!validInput);
+
+        
     }
 }
