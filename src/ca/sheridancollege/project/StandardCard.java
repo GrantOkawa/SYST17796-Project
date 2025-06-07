@@ -22,6 +22,10 @@ public class StandardCard extends Card {
     private Value value;
     private Suit suit;
 
+    public StandardCard (Value value, Suit suit) {
+        this.value = value;
+        this.suit = suit;
+    }
     public Value getValue() {
         return value;
     }
@@ -40,6 +44,6 @@ public class StandardCard extends Card {
 
     @Override
     public String toString() {
-        return "";
+        return value + " of " + suit;
     }
 }
