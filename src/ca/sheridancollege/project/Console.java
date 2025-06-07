@@ -40,7 +40,7 @@ public class Console {
             System.out.println(c);
         }
         
-        //Hit or Stand
+//      Hit or Stand
 
         Scanner playerInput = new Scanner(System.in);
         boolean validInput = false;
@@ -53,8 +53,9 @@ public class Console {
             int hitOrStand = playerInput.nextInt();
             switch (hitOrStand) {
                 case 1:
-                    Card playerCard3 = desk.drawCard();
                     System.out.println("You have decided to hit");
+                    Card playerCard3 = desk.drawCard();
+                    System.out.println("You have drawn a: " + playerCard3);
                     validInput = true;
                     break;
                 case 2:
@@ -64,7 +65,7 @@ public class Console {
                 default:
                     System.out.println("Invalid number. Please enter 1 or 2.");
                     break;
-            }
+                }
             } else {
                 System.out.println("Invalid input. Please enter 1 or 2.");
                 playerInput.next(); // Consume the invalid input to avoid an infinite loop
