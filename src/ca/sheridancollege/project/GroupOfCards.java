@@ -65,11 +65,21 @@ public class GroupOfCards {
     
     public int getHandValue() {
         int total = 0;
+        int aceCount = 0; 
     
         for (Card c : cards){
             StandardCard sc = (StandardCard) c;
             total += sc.getValue().getCardValue();
-            
+            if (sc.getValue() == StandardCard.Value.ACE){
+                aceCount++;
+            }
+        }
+        
+        // If player draws a card and total is above 21 but has an ace
+        // Make the ace value a 1 by reducing 10 from total
+        while (total > 21 && aceCount > 0) {
+            total -= 10;
+            aceCount --;
         }
     
         return total;
