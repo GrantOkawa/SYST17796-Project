@@ -82,10 +82,10 @@ public class Console {
                                 if (nextTurn == 1 || nextTurn == 2) {
                                     inputValid = true;
                                 } else {
-                                    System.out.println("Please enter either 1 or 2.");
+                                    System.out.println("Please enter either 1 for Hit or 2 for Stand.");
                                 }
                             } else {
-                                System.out.println("Invalid input. Please enter a number.");
+                                System.out.println("Invalid input. Please enter 1 for Hit or 2 for Stand");
                                 playerInput.next();
                             }
                         }                        
