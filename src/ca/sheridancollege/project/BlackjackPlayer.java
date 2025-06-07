@@ -10,8 +10,18 @@ package ca.sheridancollege.project;
  */
 public class BlackjackPlayer extends Player {
 
+    private GroupOfCards cards;
     public BlackjackPlayer(String name) {
         super(name);
+        cards = new GroupOfCards(5);
+    }
+
+    public GroupOfCards getHandCards() {
+        return cards;
+    }
+
+    public void setCards(GroupOfCards cards) {
+        this.cards = cards;
     }
 
     @Override
