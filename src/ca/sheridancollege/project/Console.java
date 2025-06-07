@@ -71,8 +71,25 @@ public class Console {
                             System.exit(0);
                         }
                         
-                        System.out.println("1 for Hit or 2 for Stand: ");
-                        int nextTurn = playerInput.nextInt();
+                        int nextTurn = 0;
+                        boolean inputValid = false;
+
+                        while (!inputValid) {
+                            System.out.println("Enter 1 for Hit or 2 for Stand: ");
+
+                            if (playerInput.hasNextInt()) {
+                                nextTurn = playerInput.nextInt();
+                                if (nextTurn == 1 || nextTurn == 2) {
+                                    inputValid = true;
+                                } else {
+                                    System.out.println("Please enter either 1 or 2.");
+                                }
+                            } else {
+                                System.out.println("Invalid input. Please enter a number.");
+                                playerInput.next();
+                            }
+                        }                        
+                   
                         if (nextTurn == 1){
                             continue;
                         } else {
@@ -95,7 +112,7 @@ public class Console {
             }
         } while (!validInput);
 
-        
+        System.out.println("---------------------------------------------------");
         
         //dealer logic
         System.out.println("\nDealers second card: " + dealerCard2);
