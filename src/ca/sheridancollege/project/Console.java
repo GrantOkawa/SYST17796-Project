@@ -39,6 +39,7 @@ public class Console {
         for (Card c : player.getHandCards().getCards()) {
             System.out.println(c);
         }
+        System.out.println("The total value of your hand is: " + player.getHandCards().getHandValue());
         
 //      Hit or Stand
 
@@ -46,7 +47,7 @@ public class Console {
         boolean validInput = false;
 
         do {
-            System.out.println("Hit or Stand?");
+            System.out.println("\nHit or Stand?");
             System.out.println("Enter 1 for Hit and 2 for Stand");
 
             if (playerInput.hasNextInt()) {
@@ -61,6 +62,7 @@ public class Console {
                     for (Card c : player.getHandCards().getCards()) {
                     System.out.println(c);
                     }
+                    System.out.println("The total value of your hand is: " + player.getHandCards().getHandValue());
                     validInput = true;
                     break;
                 case 2:
@@ -73,7 +75,7 @@ public class Console {
                 }
             } else {
                 System.out.println("Invalid input. Please enter 1 or 2.");
-                playerInput.next(); // Consume the invalid input to avoid an infinite loop
+                playerInput.next(); 
             }
         } while (!validInput);
 
