@@ -53,13 +53,18 @@ public class Console {
             int hitOrStand = playerInput.nextInt();
             switch (hitOrStand) {
                 case 1:
-                    System.out.println("You have decided to hit");
+                    System.out.println("\nYou have decided to hit");
                     Card playerCard3 = desk.drawCard();
+                    player.getHandCards().getCards().add(playerCard3);
                     System.out.println("You have drawn a: " + playerCard3);
+                    System.out.println("Cards of Player: ");
+                    for (Card c : player.getHandCards().getCards()) {
+                    System.out.println(c);
+                    }
                     validInput = true;
                     break;
                 case 2:
-                    System.out.println("You have decided to stand");
+                    System.out.println("\nYou have decided to stand");
                     validInput = true;
                     break;
                 default:
