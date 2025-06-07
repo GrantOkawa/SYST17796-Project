@@ -63,6 +63,10 @@ public class Console {
                     System.out.println(c);
                     }
                     System.out.println("The total value of your hand is: " + player.getHandCards().getHandValue());
+                        if (player.getHandCards().getHandValue() > 21) {
+                            System.out.println("You busted gg");
+                            System.exit(0);
+                        }
                     validInput = true;
                     break;
                 case 2:
