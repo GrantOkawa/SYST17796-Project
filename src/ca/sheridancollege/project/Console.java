@@ -96,5 +96,39 @@ public class Console {
         } while (!validInput);
 
         
+        
+        //dealer logic
+        System.out.println("\nDealers second card: " + dealerCard2);
+        
+        //Cards of Dealer
+        System.out.println("Dealer's Cards:");
+        for (Card c : dealer.getHandCards().getCards()){
+            System.out.println("\t" + c);
+        }
+        
+        //Total value of dealer's cards 
+        int dealerTotal = dealer.getHandCards().getHandValue();
+        System.out.println("\nDealer hand value: " + dealerTotal);
+        
+        //Dealer must hit if total < 17, if total > 21 they bust
+        while (dealerTotal < 17){
+            Card newDealerCard = desk.drawCard();
+            dealer.getHandCards().getCards().add(newDealerCard);
+            System.out.println("\nDealer draws a: " + newDealerCard);
+            
+            dealerTotal = dealer.getHandCards().getHandValue();
+            System.out.println("Dealer hand value: " + dealerTotal);
+        }
+        
+        //bust logic 
+        if(dealerTotal > 21){
+            System.out.println("\nDealer busts with: " + dealerTotal + " player wins");
+        } else {
+            System.out.println("\nDealer stands with: " + dealerTotal);
+        }
+        
+        
+        //Compare the total value of Player and Dealer hand to see who wins
+        
     }
 }
