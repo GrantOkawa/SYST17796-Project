@@ -62,5 +62,17 @@ public class GroupOfCards {
     public void setSize(int size) {
         this.size = size;
     }
+    
+    public int getHandValue() {
+        int total = 0;
+    
+        for (Card c : cards){
+            StandardCard sc = (StandardCard) c;
+            total += sc.getValue().getCardValue();
+            
+        }
+    
+        return total;
+    }
 
 }//end class
