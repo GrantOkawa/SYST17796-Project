@@ -54,19 +54,31 @@ public class Console {
             int hitOrStand = playerInput.nextInt();
             switch (hitOrStand) {
                 case 1:
-                    System.out.println("\nYou have decided to hit");
-                    Card playerCard3 = desk.drawCard();
-                    player.getHandCards().getCards().add(playerCard3);
-                    System.out.println("You have drawn a: " + playerCard3);
-                    System.out.println("Cards of Player: ");
-                    for (Card c : player.getHandCards().getCards()) {
-                    System.out.println(c);
-                    }
-                    System.out.println("The total value of your hand is: " + player.getHandCards().getHandValue());
+                    while (true) {
+                        System.out.println("\nYou have decided to hit");
+                        Card playerCard3 = desk.drawCard();
+                        player.getHandCards().getCards().add(playerCard3);
+                        System.out.println("You have drawn a: " + playerCard3);
+                        System.out.println("Cards of Player: ");
+
+                        for (Card c : player.getHandCards().getCards()) {
+                            System.out.println(c);
+                        }
+
+                        System.out.println("The total value of your hand is: " + player.getHandCards().getHandValue());
                         if (player.getHandCards().getHandValue() > 21) {
                             System.out.println("You busted gg");
                             System.exit(0);
                         }
+                        
+                        System.out.println("1 for Hit or 2 for Stand: ");
+                        int nextTurn = playerInput.nextInt();
+                        if (nextTurn == 1){
+                            continue;
+                        } else {
+                            break;
+                        }
+                    }                    
                     validInput = true;
                     break;
                 case 2:
