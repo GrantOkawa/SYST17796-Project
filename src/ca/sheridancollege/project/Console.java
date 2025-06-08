@@ -21,6 +21,9 @@ public class Console {
 //        Create dealer and player
         BlackjackPlayer player = new BlackjackPlayer("Jimmy");
         BlackjackPlayer dealer = new BlackjackPlayer("Grant");
+        
+        //Creating new scoreboard
+        Scoreboard scoreboard = new Scoreboard();
 
 //  Dealer draw 2 cards
         Card dealerCard1 = desk.drawCard();
@@ -49,7 +52,7 @@ public class Console {
         do {
             System.out.println("\nHit or Stand?");
             System.out.println("Enter 1 for Hit and 2 for Stand");
-
+            
             if (playerInput.hasNextInt()) {
             int hitOrStand = playerInput.nextInt();
             switch (hitOrStand) {
@@ -68,6 +71,8 @@ public class Console {
                         System.out.println("The total value of your hand is: " + player.getHandCards().getHandValue());
                         if (player.getHandCards().getHandValue() > 21) {
                             System.out.println("You busted gg");
+                            scoreboard.addPlayerLoss();
+                            scoreboard.printScore();
                             System.exit(0);
                         }
                         
@@ -139,7 +144,9 @@ public class Console {
         
         //bust logic 
         if(dealerTotal > 21){
-            System.out.println("\nDealer busts with: " + dealerTotal + " PLAYER WINS");
+            System.out.println("\nDealer busts with: " + dealerTotal + " \nPLAYER WINS");
+            scoreboard.addPlayerWin();
+            scoreboard.printScore();
             System.exit(0);
         } else {
             System.out.println("\nDealer stands with: " + dealerTotal);
@@ -147,10 +154,13 @@ public class Console {
         
         
         //Compare the total value of Player and Dealer hand to see who wins
-        if(dealerTotal > player.getHandCards().getHandValue()){
+        if(dealerTotal >= player.getHandCards().getHandValue()){
             System.out.println("\nDEALER WINS");
+            scoreboard.addPlayerLoss();
         } else {
             System.out.println("\nPLAYER WINS");
+            scoreboard.addPlayerWin();
         }
+        scoreboard.printScore();
     }
 }
