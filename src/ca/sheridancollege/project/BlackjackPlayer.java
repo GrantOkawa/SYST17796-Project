@@ -11,6 +11,7 @@ package ca.sheridancollege.project;
 public class BlackjackPlayer extends Player {
 
     private GroupOfCards cards;
+
     public BlackjackPlayer(String name) {
         super(name);
         cards = new GroupOfCards(5);
@@ -25,6 +26,8 @@ public class BlackjackPlayer extends Player {
     }
 
     @Override
-    public void play() {
+    public void play(Card c) {
+        this.getHandCards().getCards().add(c);
+
     }
 }
