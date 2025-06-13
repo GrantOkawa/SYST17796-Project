@@ -52,6 +52,7 @@ public class Blackjack extends Game {
             BlackjackPlayer player = (BlackjackPlayer) this.getPlayers().get(1);
             dealer.play(dealerCard1);
             dealer.play(dealerCard2);
+            System.out.println("*********** New Game ***********");
 //      Show 1, hide 1
             System.out.println("Card 1 of Dealer: " + dealerCard1);
 
