@@ -13,10 +13,9 @@ public class Blackjack extends Game {
     private Scoreboard scoreboard;
     private GroupOfCards desk;
 
-    public Blackjack(String name, Scoreboard scoreboard, GroupOfCards desk) {
+    public Blackjack(String name, Scoreboard scoreboard) {
         super(name);
         this.scoreboard = scoreboard;
-        this.desk = desk;
     }
 
     public Scoreboard getScoreboard() {
@@ -35,17 +34,22 @@ public class Blackjack extends Game {
         this.desk = desk;
     }
 
-    @Override
-    public void play() {
-        Utility util = new Utility();
+    public void initializeDeskWithCards() {
+        this.desk = new GroupOfCards(52);
         for (StandardCard.Suit suit : StandardCard.Suit.values()) {
             for (StandardCard.Value value : StandardCard.Value.values()) {
                 this.getDesk().getCards().add(new StandardCard(value, suit));
             }
         }
         this.getDesk().shuffle();
+    }
+
+    @Override
+    public void play() {
+        Utility util = new Utility();
         int continuePlay;
         while (true) {
+            this.initializeDeskWithCards();
             Card dealerCard1 = desk.drawCard();
             Card dealerCard2 = desk.drawCard();
             BlackjackPlayer dealer = (BlackjackPlayer) this.getPlayers().get(0);
@@ -150,27 +154,6 @@ public class Blackjack extends Game {
         BlackjackPlayer player = (BlackjackPlayer) this.getPlayers().get(1);
         //Total value of dealer's cards 
         int dealerTotal = dealer.getHandCards().getHandValue();
-//        System.out.println("\nDealer hand value: " + dealerTotal);
-//
-//        //Dealer must hit if total < 17, if total > 21 they bust
-//        while (dealerTotal < 17) {
-//            Card newDealerCard = desk.drawCard();
-//            dealer.getHandCards().getCards().add(newDealerCard);
-//            System.out.println("\nDealer draws a: " + newDealerCard);
-//
-//            dealerTotal = dealer.getHandCards().getHandValue();
-//            System.out.println("Dealer hand value: " + dealerTotal);
-//        }
-//
-//        //bust logic 
-//        if (dealerTotal > 21) {
-//            System.out.println("\nDealer busts with: " + dealerTotal + " \nPLAYER WINS");
-//            scoreboard.addPlayerWin();
-//
-//        } else {
-//            System.out.println("\nDealer stands with: " + dealerTotal);
-//        }
-
         if (player.getHandCards().getHandValue() > 21) {
             System.out.println("\nDEALER WINS");
             scoreboard.addPlayerLoss();
