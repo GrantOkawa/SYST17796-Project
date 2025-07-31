@@ -9,7 +9,7 @@ import java.util.Scanner;  // Import the Scanner class
 public class Console {
 
     public static void main(String[] args) {
-        Blackjack b1 = new Blackjack("Blackjack game", new Scoreboard(), new GroupOfCards(52));
+        Blackjack b1 = new Blackjack("Blackjack game", new Scoreboard());
 //       Create dealer and player
         BlackjackPlayer player = new BlackjackPlayer("Jimmy");
         BlackjackPlayer dealer = new BlackjackPlayer("Grant");
