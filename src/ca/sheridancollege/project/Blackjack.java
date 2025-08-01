@@ -56,6 +56,7 @@ public class Blackjack extends Game {
             BlackjackPlayer player = (BlackjackPlayer) this.getPlayers().get(1);
             dealer.play(dealerCard1);
             dealer.play(dealerCard2);
+            System.out.println("*********** New Game ***********");
 //      Show 1, hide 1
             System.out.println("Card 1 of Dealer: " + dealerCard1);
 
@@ -131,7 +132,6 @@ public class Blackjack extends Game {
             //bust logic 
             if (dealerTotal > 21) {
                 System.out.println("\nDealer busts with: " + dealerTotal + " \nPLAYER WINS");
-                scoreboard.addPlayerWin();
 
             } else {
                 System.out.println("\nDealer stands with: " + dealerTotal);
@@ -149,22 +149,40 @@ public class Blackjack extends Game {
     }
 
     @Override
-    public void declareWinner() {
-        BlackjackPlayer dealer = (BlackjackPlayer) this.getPlayers().get(0);
-        BlackjackPlayer player = (BlackjackPlayer) this.getPlayers().get(1);
-        //Total value of dealer's cards 
-        int dealerTotal = dealer.getHandCards().getHandValue();
-        if (player.getHandCards().getHandValue() > 21) {
-            System.out.println("\nDEALER WINS");
-            scoreboard.addPlayerLoss();
-        } else //Compare the total value of Player and Dealer hand to see who wins
-        if (dealerTotal >= player.getHandCards().getHandValue()) {
-            System.out.println("\nDEALER WINS");
-            scoreboard.addPlayerLoss();
-        } else {
-            System.out.println("\nPLAYER WINS");
-            scoreboard.addPlayerWin();
-        }
-        scoreboard.printScore();
+public void declareWinner() {
+    BlackjackPlayer dealer = (BlackjackPlayer) this.getPlayers().get(0);
+    BlackjackPlayer player = (BlackjackPlayer) this.getPlayers().get(1);
+
+    int dealerTotal = dealer.getHandCards().getHandValue();
+    int playerTotal = player.getHandCards().getHandValue();
+
+    // Player busts
+    if (playerTotal > 21) {
+        System.out.println("\nPLAYER BUSTS with " + playerTotal + " — DEALER WINS");
+        scoreboard.addPlayerLoss();
     }
+    // Dealer busts
+    else if (dealerTotal > 21) {
+        System.out.println("\nDEALER BUSTS with " + dealerTotal + " — PLAYER WINS");
+        scoreboard.addPlayerWin();
+    }
+    // Tie
+    else if (dealerTotal == playerTotal) {
+        System.out.println("\nPUSH — Both have " + playerTotal);
+        System.out.println("No wins or losses are added");
+    }
+    // Compare totals
+    else if (dealerTotal > playerTotal) {
+        System.out.println("\nDEALER WINS");
+        scoreboard.addPlayerLoss();
+    }
+    else {
+        System.out.println("\nPLAYER WINS");
+        scoreboard.addPlayerWin();
+    }
+
+    scoreboard.printScore();
+}
+
+
 }
