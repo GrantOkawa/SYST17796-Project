@@ -25,7 +25,7 @@ public class Utility {
                     System.out.println("Invalid input. Please enter 1 for Hit or 2 for Stand! ");
                 }
             } else {
-                System.out.println("Invalid input. Please enter an integer");
+                System.out.println("Invalid input. Please enter either 1 or 2!");
                 s.next();
             }
         }

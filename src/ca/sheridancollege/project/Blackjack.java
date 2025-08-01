@@ -11,12 +11,11 @@ package ca.sheridancollege.project;
 public class Blackjack extends Game {
 
     private Scoreboard scoreboard;
-    private GroupOfCards desk;
+    private GroupOfCards deck;
 
-    public Blackjack(String name, Scoreboard scoreboard, GroupOfCards desk) {
+    public Blackjack(String name, Scoreboard scoreboard) {
         super(name);
         this.scoreboard = scoreboard;
-        this.desk = desk;
     }
 
     public Scoreboard getScoreboard() {
@@ -27,27 +26,32 @@ public class Blackjack extends Game {
         this.scoreboard = scoreboard;
     }
 
-    public GroupOfCards getDesk() {
-        return desk;
+    public GroupOfCards getDeck() {
+        return deck;
     }
 
-    public void setDesk(GroupOfCards desk) {
-        this.desk = desk;
+    public void setDeck(GroupOfCards deck) {
+        this.deck = deck;
+    }
+
+    public void initializeDeckWithCards() {
+        this.deck = new GroupOfCards(52);
+        for (StandardCard.Suit suit : StandardCard.Suit.values()) {
+            for (StandardCard.Value value : StandardCard.Value.values()) {
+                this.getDeck().getCards().add(new StandardCard(value, suit));
+            }
+        }
+        this.getDeck().shuffle();
     }
 
     @Override
     public void play() {
         Utility util = new Utility();
-        for (StandardCard.Suit suit : StandardCard.Suit.values()) {
-            for (StandardCard.Value value : StandardCard.Value.values()) {
-                this.getDesk().getCards().add(new StandardCard(value, suit));
-            }
-        }
-        this.getDesk().shuffle();
         int continuePlay;
         while (true) {
-            Card dealerCard1 = desk.drawCard();
-            Card dealerCard2 = desk.drawCard();
+            this.initializeDeckWithCards();
+            Card dealerCard1 = deck.drawCard();
+            Card dealerCard2 = deck.drawCard();
             BlackjackPlayer dealer = (BlackjackPlayer) this.getPlayers().get(0);
             BlackjackPlayer player = (BlackjackPlayer) this.getPlayers().get(1);
             dealer.play(dealerCard1);
@@ -57,9 +61,9 @@ public class Blackjack extends Game {
             System.out.println("Card 1 of Dealer: " + dealerCard1);
 
 //        Player draw 2 cards
-            Card playerCard1 = desk.drawCard();
+            Card playerCard1 = deck.drawCard();
             player.play(playerCard1);
-            Card playerCard2 = desk.drawCard();
+            Card playerCard2 = deck.drawCard();
             player.play(playerCard2);
 
             System.out.println("Cards of Player: ");
@@ -73,7 +77,7 @@ public class Blackjack extends Game {
                 hitOrStand = util.validateInput("Enter 1 for Hit and 2 for Stand: ");
                 if (hitOrStand == 1) {
                     System.out.println("\nYou have decided to hit");
-                    Card playerCard3 = desk.drawCard();
+                    Card playerCard3 = deck.drawCard();
                     player.getHandCards().getCards().add(playerCard3);
                     System.out.println("You have drawn a: " + playerCard3);
                     System.out.println("Cards of Player: ");
@@ -91,7 +95,17 @@ public class Blackjack extends Game {
                     break;
                 }
             }
-
+            if (player.getHandCards().getHandValue() > 21) {
+                declareWinner();
+                continuePlay = util.validateInput("Enter 1 to continue to play or 2 to exit: ");
+                if (continuePlay == 1) {
+                    dealer.getHandCards().getCards().clear();
+                    player.getHandCards().getCards().clear();
+                    continue;
+                } else {
+                    System.exit(0);
+                }
+            }
             System.out.println("---------------------------------------------------");
 
             //dealer logic
@@ -102,7 +116,27 @@ public class Blackjack extends Game {
             for (Card c : dealer.getHandCards().getCards()) {
                 System.out.println("\t" + c);
             }
+            int dealerTotal = dealer.getHandCards().getHandValue();
+            System.out.println("\nDealer hand value: " + dealerTotal);
 
+            //Dealer must hit if total < 17, if total > 21 they bust
+            while (dealerTotal < 17) {
+                Card newDealerCard = deck.drawCard();
+                dealer.getHandCards().getCards().add(newDealerCard);
+                System.out.println("\nDealer draws a: " + newDealerCard);
+
+                dealerTotal = dealer.getHandCards().getHandValue();
+                System.out.println("Dealer hand value: " + dealerTotal);
+            }
+
+            //bust logic 
+            if (dealerTotal > 21) {
+                System.out.println("\nDealer busts with: " + dealerTotal + " \nPLAYER WINS");
+                scoreboard.addPlayerWin();
+
+            } else {
+                System.out.println("\nDealer stands with: " + dealerTotal);
+            }
             declareWinner();
             continuePlay = util.validateInput("Enter 1 to continue to play or 2 to exit: ");
             if (continuePlay == 1) {
@@ -121,28 +155,10 @@ public class Blackjack extends Game {
         BlackjackPlayer player = (BlackjackPlayer) this.getPlayers().get(1);
         //Total value of dealer's cards 
         int dealerTotal = dealer.getHandCards().getHandValue();
-        System.out.println("\nDealer hand value: " + dealerTotal);
-
-        //Dealer must hit if total < 17, if total > 21 they bust
-        while (dealerTotal < 17) {
-            Card newDealerCard = desk.drawCard();
-            dealer.getHandCards().getCards().add(newDealerCard);
-            System.out.println("\nDealer draws a: " + newDealerCard);
-
-            dealerTotal = dealer.getHandCards().getHandValue();
-            System.out.println("Dealer hand value: " + dealerTotal);
-        }
-
-        //bust logic 
-        if (dealerTotal > 21) {
-            System.out.println("\nDealer busts with: " + dealerTotal + " \nPLAYER WINS");
-            scoreboard.addPlayerWin();
-
-        } else {
-            System.out.println("\nDealer stands with: " + dealerTotal);
-        }
-
-        //Compare the total value of Player and Dealer hand to see who wins
+        if (player.getHandCards().getHandValue() > 21) {
+            System.out.println("\nDEALER WINS");
+            scoreboard.addPlayerLoss();
+        } else //Compare the total value of Player and Dealer hand to see who wins
         if (dealerTotal >= player.getHandCards().getHandValue()) {
             System.out.println("\nDEALER WINS");
             scoreboard.addPlayerLoss();
