@@ -43,7 +43,7 @@ public class GroupOfCards {
 
     public Card drawCard() {
         if (cards.size() == 0) {
-//            throw new Exception ("Empty desk/hand");
+//            throw new Exception ("Empty deck/hand");
             return null;
         }
         return cards.remove(0);

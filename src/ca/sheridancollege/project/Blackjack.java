@@ -11,7 +11,7 @@ package ca.sheridancollege.project;
 public class Blackjack extends Game {
 
     private Scoreboard scoreboard;
-    private GroupOfCards desk;
+    private GroupOfCards deck;
 
     public Blackjack(String name, Scoreboard scoreboard) {
         super(name);
@@ -26,22 +26,22 @@ public class Blackjack extends Game {
         this.scoreboard = scoreboard;
     }
 
-    public GroupOfCards getDesk() {
-        return desk;
+    public GroupOfCards getDeck() {
+        return deck;
     }
 
-    public void setDesk(GroupOfCards desk) {
-        this.desk = desk;
+    public void setDeck(GroupOfCards deck) {
+        this.deck = deck;
     }
 
-    public void initializeDeskWithCards() {
-        this.desk = new GroupOfCards(52);
+    public void initializeDeckWithCards() {
+        this.deck = new GroupOfCards(52);
         for (StandardCard.Suit suit : StandardCard.Suit.values()) {
             for (StandardCard.Value value : StandardCard.Value.values()) {
-                this.getDesk().getCards().add(new StandardCard(value, suit));
+                this.getDeck().getCards().add(new StandardCard(value, suit));
             }
         }
-        this.getDesk().shuffle();
+        this.getDeck().shuffle();
     }
 
     @Override
@@ -49,9 +49,9 @@ public class Blackjack extends Game {
         Utility util = new Utility();
         int continuePlay;
         while (true) {
-            this.initializeDeskWithCards();
-            Card dealerCard1 = desk.drawCard();
-            Card dealerCard2 = desk.drawCard();
+            this.initializeDeckWithCards();
+            Card dealerCard1 = deck.drawCard();
+            Card dealerCard2 = deck.drawCard();
             BlackjackPlayer dealer = (BlackjackPlayer) this.getPlayers().get(0);
             BlackjackPlayer player = (BlackjackPlayer) this.getPlayers().get(1);
             dealer.play(dealerCard1);
@@ -60,9 +60,9 @@ public class Blackjack extends Game {
             System.out.println("Card 1 of Dealer: " + dealerCard1);
 
 //        Player draw 2 cards
-            Card playerCard1 = desk.drawCard();
+            Card playerCard1 = deck.drawCard();
             player.play(playerCard1);
-            Card playerCard2 = desk.drawCard();
+            Card playerCard2 = deck.drawCard();
             player.play(playerCard2);
 
             System.out.println("Cards of Player: ");
@@ -76,7 +76,7 @@ public class Blackjack extends Game {
                 hitOrStand = util.validateInput("Enter 1 for Hit and 2 for Stand: ");
                 if (hitOrStand == 1) {
                     System.out.println("\nYou have decided to hit");
-                    Card playerCard3 = desk.drawCard();
+                    Card playerCard3 = deck.drawCard();
                     player.getHandCards().getCards().add(playerCard3);
                     System.out.println("You have drawn a: " + playerCard3);
                     System.out.println("Cards of Player: ");
@@ -120,7 +120,7 @@ public class Blackjack extends Game {
 
             //Dealer must hit if total < 17, if total > 21 they bust
             while (dealerTotal < 17) {
-                Card newDealerCard = desk.drawCard();
+                Card newDealerCard = deck.drawCard();
                 dealer.getHandCards().getCards().add(newDealerCard);
                 System.out.println("\nDealer draws a: " + newDealerCard);
 
