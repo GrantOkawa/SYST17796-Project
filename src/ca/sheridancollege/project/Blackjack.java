@@ -97,13 +97,13 @@ public class Blackjack extends Game {
             }
             if (player.getHandCards().getHandValue() > 21) {
                 declareWinner();
-                continuePlay = util.validateInput("Enter 1 to continue to play or 2 to exit: ");
+                continuePlay = util.validateInput("Enter '1' to continue playing or '2' to return to main menu: ");
                 if (continuePlay == 1) {
                     dealer.getHandCards().getCards().clear();
                     player.getHandCards().getCards().clear();
                     continue;
                 } else {
-                    System.exit(0);
+                    return;
                 }
             }
             System.out.println("---------------------------------------------------");
@@ -137,13 +137,13 @@ public class Blackjack extends Game {
                 System.out.println("\nDealer stands with: " + dealerTotal);
             }
             declareWinner();
-            continuePlay = util.validateInput("Enter 1 to continue to play or 2 to exit: ");
+            continuePlay = util.validateInput("Enter '1' to continue playing or '2' to return to main menu: ");
             if (continuePlay == 1) {
                 dealer.getHandCards().getCards().clear();
                 player.getHandCards().getCards().clear();
                 continue;
             } else {
-                System.exit(0);
+                return;
             }
         }
     }
