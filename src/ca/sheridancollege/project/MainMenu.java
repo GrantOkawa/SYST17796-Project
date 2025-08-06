@@ -11,18 +11,15 @@ import java.util.Scanner;
  * @author Jimmy
  */
 public class MainMenu {
-    private Scanner scanner;
-    private Scoreboard scoreboard;
     private Blackjack blackjack;
 
-    public MainMenu(Scoreboard scoreboard, Blackjack blackjack) {
-        this.scanner = new Scanner(System.in);
-        this.scoreboard = scoreboard;
+    public MainMenu(Blackjack blackjack) {
         this.blackjack = blackjack;
     }
 
     public void menu() {
         while (true) {
+            Scanner scanner = new Scanner(System.in);
             System.out.println("***** MAIN MENU *****");
             System.out.println("1) Play Game");
             System.out.println("2) Check Score");
@@ -37,7 +34,7 @@ public class MainMenu {
                     break;
                 case "2":
                     System.out.println("===== Scoreboard =====");
-                    scoreboard.printScore();
+                    blackjack.getScoreboard().printScore();
                     break;
                 case "3":
                     System.out.println("Thanks for playing!");
